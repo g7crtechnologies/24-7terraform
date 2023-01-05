@@ -1,4 +1,4 @@
-.PHONY: init-dev-eu, init-prod-eu, init-hub-eu, init-psr-eu, init-qa-eu, init-stg-eu, init-stb-eu, plan-dev-eu, plan-prod-eu, plan-hub-eu, plan-psr-eu, plan-qa-eu, plan-stg-eu, plan-stb-eu, apply-dev-eu, apply-prod-eu, apply-hub-eu, apply-psr-eu, apply-qa-eu, apply-stg-eu, apply-stb-eu, init-dev-wu, init-prod-wu, init-hub-wu, init-prod-wu, init-hub-wu, init-psr-wu, init-qa-wu, init-stg-wu, init-stb-wu, plan-prod-wu, plan-hub-wu, plan-psr-wu, plan-stg-wu, plan-stb-wu, apply-prod-wu, apply-hub-wu, apply-psr-wu, apply-stg-wu, apply-stb-wu, plan-eu, plan-wu, apply-eu, apply-wu, delete-env-eu, delete-env-wu help
+.PHONY: init-dev-eu, init-prod-eu, init-hub-eu, init-psr-eu, init-qa-eu, init-stg-eu, init-stb-eu, plan-dev-eu, plan-prod-eu, plan-hub-eu, plan-psr-eu, plan-qa-eu, plan-stg-eu, plan-stb-eu, apply-dev-eu, apply-prod-eu, apply-hub-eu, apply-psr-eu, apply-qa-eu, apply-stg-eu, apply-stb-eu, init-dev-wu, init-prod-wu, init-hub-wu, init-prod-wu, init-hub-wu, init-psr-wu, init-qa-wu, init-stg-wu, init-stb-wu, plan-prod-wu, plan-hub-wu, plan-psr-wu, plan-stg-wu, plan-stb-wu, apply-prod-wu, apply-hub-wu, apply-psr-wu, apply-stg-wu, apply-stb-wu, plan-eu, plan-wu, apply-eu, apply-wu, env, help
 module=DEFAULT
 ##   make apply-<env_name that is mentioned in makefile > -varfile=terraform_eu.tfvars or terraform_wu.tfvars
 
@@ -36,7 +36,7 @@ init-stb-eu: az-stb
 
 ## plan-dev: run terraform plan on the staging workspace. usage: make plan-dev module=<module name>
 plan-dev-eu: init-dev-eu
-	@terraform workspace new dev && terraform workspace select dev
+	@terraform workspace select dev
 ifeq (DEFAULT,$(module))
 	@terraform plan -var-file=terraform_eu.tfvars -parallelism=20
 else
@@ -45,7 +45,7 @@ endif
 
 ## plan-prod: run terraform plan on the prod workspace. usage: make plan-prod module=<module name>
 plan-prod-eu: init-prod-eu
-	@terraform workspace new prod && terraform workspace select prod
+	@terraform workspace select prod
 ifeq (DEFAULT,$(module))
 	@terraform plan -var-file=terraform_eu.tfvars -parallelism=20
 else
@@ -54,7 +54,7 @@ endif
 
 ## plan-hub: run terraform plan on the hub workspace. usage: make plan-hub module=<module name>
 plan-hub-eu: init-hub-eu
-	@terraform workspace new hub && terraform workspace select hub
+	@terraform workspace select hub
 ifeq (DEFAULT,$(module))
 	@terraform plan -var-file=terraform_eu.tfvars -parallelism=20
 else
@@ -63,7 +63,7 @@ endif
 
 ## plan-psr: run terraform plan on the psr workspace. usage: make plan-psr module=<module name>
 plan-psr-eu: init-psr-eu
-	@terraform workspace new psr && terraform workspace select psr
+	@terraform workspace select psr
 ifeq (DEFAULT,$(module))
 	@terraform plan -var-file=terraform_eu.tfvars -parallelism=20
 else
@@ -72,7 +72,7 @@ endif
 
 ## plan-qa: run terraform plan on the qa workspace. usage: make plan-qa module=<module name>
 plan-qa-eu: init-qa-eu
-	@terraform workspace new qa && terraform workspace select qa
+	@terraform workspace select qa
 ifeq (DEFAULT,$(module))
 	@terraform plan -var-file=terraform_eu.tfvars -parallelism=20
 else
@@ -81,7 +81,7 @@ endif
 
 ## plan-stg: run terraform plan on the stg workspace. usage: make plan-stg module=<module name>
 plan-stg-eu: init-stg-eu
-	@terraform workspace new stg && terraform workspace select stg
+	@terraform workspace select stg
 ifeq (DEFAULT,$(module))
 	@terraform plan -var-file=terraform_eu.tfvars -parallelism=20
 else
@@ -90,7 +90,7 @@ endif
 
 ## plan-stb: run terraform plan on the stb workspace. usage: make plan-stb module=<module name>
 plan-stb-eu: init-stb-eu
-	@terraform workspace new stb && terraform workspace select stb
+	@terraform workspace select stb
 ifeq (DEFAULT,$(module))
 	@terraform plan -var-file=terraform_eu.tfvars -parallelism=20
 else
@@ -179,7 +179,7 @@ init-stb-wu: az-stb
 
 ## plan-prod: run terraform plan on the prod workspace. usage: make plan-prod module=<module name>
 plan-prod-wu: init-prod-wu
-	@terraform workspace new prod && terraform workspace select prod
+	@terraform workspace select prod
 ifeq (DEFAULT,$(module))
 	@terraform plan -var-file=terraform_wu.tfvars -parallelism=20
 else
@@ -188,7 +188,7 @@ endif
 
 ## plan-hub: run terraform plan on the hub workspace. usage: make plan-hub module=<module name>
 plan-hub-wu: init-hub-wu
-	@terraform workspace new hub && terraform workspace select hub
+	@terraform workspace select hub
 ifeq (DEFAULT,$(module))
 	@terraform plan -var-file=terraform_wu.tfvars -parallelism=20
 else
@@ -197,7 +197,7 @@ endif
 
 ## plan-psr: run terraform plan on the psr workspace. usage: make plan-psr module=<module name>
 plan-psr-wu: init-psr-wu
-	@terraform workspace new psr && terraform workspace select psr
+	@terraform workspace select psr
 ifeq (DEFAULT,$(module))
 	@terraform plan -var-file=terraform_wu.tfvars -parallelism=20
 else
@@ -206,7 +206,7 @@ endif
 
 ## plan-stg: run terraform plan on the stg workspace. usage: make plan-stg module=<module name>
 plan-stg-wu: init-stg-wu
-	@terraform workspace new stg && terraform workspace select stg
+	@terraform workspace select stg
 ifeq (DEFAULT,$(module))
 	@terraform plan -var-file=terraform_wu.tfvars -parallelism=20
 else
@@ -215,7 +215,7 @@ endif
 
 ## plan-stb: run terraform plan on the stb workspace. usage: make plan-stb module=<module name>
 plan-stb-wu: init-stb-wu
-	@terraform workspace new stb && terraform workspace select stb
+	@terraform workspace select stb
 ifeq (DEFAULT,$(module))
 	@terraform plan -var-file=terraform_wu.tfvars -parallelism=20
 else
@@ -266,6 +266,9 @@ ifeq (DEFAULT,$(module))
 else
 	@terraform apply -target=$(module)
 endif
+
+env:
+	@terraform workspace new dev && terraform workspace new prod && terraform workspace new hub && terraform workspace new psr && terraform workspace new qa && terraform workspace new stg && terraform workspace new stb
 
 plan-eu: plan-dev-eu plan-prod-eu plan-hub-eu plan-psr-eu plan-qa-eu plan-stg-eu plan-stb-eu 
 
