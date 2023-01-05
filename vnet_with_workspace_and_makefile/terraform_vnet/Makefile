@@ -1,4 +1,4 @@
-.PHONY: init-dev-eu, init-prod-eu, init-hub-eu, init-prod-eu, init-psr-eu, init-qa-eu, init-stg-eu, init-stb-eu, plan-dev-eu, plan-prod-eu, plan-psr-eu, plan-qa-eu, plan-stg-eu, plan-stb-eu, apply-dev-eu, apply-prod-eu, apply-psr-eu, apply-qa-eu, apply-stg-eu, apply-stb-eu, init-dev-wu, init-prod-wu, init-hub-wu, init-prod-wu, init-psr-wu, init-qa-wu, init-stg-wu, init-stb-wu, plan-dev-wu, plan-prod-wu, plan-psr-wu, plan-qa-wu, plan-stg-wu, plan-stb-wu, apply-dev-wu, apply-prod-wu, apply-psr-wu, apply-qa-wu, apply-stg-wu, apply-stb-wu, plan-eu, plan-wu, apply-eu, apply-wu, help
+.PHONY: init-dev-eu, init-prod-eu, init-hub-eu, init-psr-eu, init-qa-eu, init-stg-eu, init-stb-eu, plan-dev-eu, plan-prod-eu, plan-hub-eu, plan-psr-eu, plan-qa-eu, plan-stg-eu, plan-stb-eu, apply-dev-eu, apply-prod-eu, apply-hub-eu, apply-psr-eu, apply-qa-eu, apply-stg-eu, apply-stb-eu, init-dev-wu, init-prod-wu, init-hub-wu, init-prod-wu, init-hub-wu, init-psr-wu, init-qa-wu, init-stg-wu, init-stb-wu, plan-prod-wu, plan-hub-wu, plan-psr-wu, plan-stg-wu, plan-stb-wu, apply-prod-wu, apply-hub-wu, apply-psr-wu, apply-stg-wu, apply-stb-wu, plan-eu, plan-wu, apply-eu, apply-wu, delete-env-eu, delete-env-wu help
 module=DEFAULT
 ##   make apply-<env_name that is mentioned in makefile > -varfile=terraform_eu.tfvars or terraform_wu.tfvars
 
@@ -166,29 +166,16 @@ endif
 
 
 
-init-dev-wu: az-dev
-	@terraform init -backend-config=storage_account_name="managementgroup123" -backend-config=container_name="managementgroup" -backend-config=key="west-us/dev/default.tfstate" -backend-config=resource_group_name="management_group" -upgrade -reconfigure -var-file=terraform_wu.tfvars
 init-prod-wu: az-prod
 	@terraform init -backend-config=storage_account_name="managementgroup123" -backend-config=container_name="managementgroup" -backend-config=key="west-us/prod/default.tfstate" -backend-config=resource_group_name="management_group" -upgrade -reconfigure -var-file=terraform_wu.tfvars
 init-hub-wu: az-hub
 	@terraform init -backend-config=storage_account_name="managementgroup123" -backend-config=container_name="managementgroup" -backend-config=key="west-us/hub/default.tfstate" -backend-config=resource_group_name="management_group" -upgrade -reconfigure -var-file=terraform_wu.tfvars
 init-psr-wu: az-psr
 	@terraform init -backend-config=storage_account_name="managementgroup123" -backend-config=container_name="managementgroup" -backend-config=key="west-us/psr/default.tfstate" -backend-config=resource_group_name="management_group" -upgrade -reconfigure -var-file=terraform_wu.tfvars
-init-qa-wu: az-qa
-	@terraform init -backend-config=storage_account_name="managementgroup123" -backend-config=container_name="managementgroup" -backend-config=key="west-us/qa/default.tfstate" -backend-config=resource_group_name="management_group" -upgrade -reconfigure -var-file=terraform_wu.tfvars
 init-stg-wu: az-stg
 	@terraform init -backend-config=storage_account_name="managementgroup123" -backend-config=container_name="managementgroup" -backend-config=key="west-us/stg/default.tfstate" -backend-config=resource_group_name="management_group" -upgrade -reconfigure -var-file=terraform_wu.tfvars
 init-stb-wu: az-stb
 	@terraform init -backend-config=storage_account_name="managementgroup123" -backend-config=container_name="managementgroup" -backend-config=key="west-us/stb/default.tfstate" -backend-config=resource_group_name="management_group" -upgrade -reconfigure -var-file=terraform_wu.tfvars
-
-## plan-dev: run terraform plan on the staging workspace. usage: make plan-dev module=<module name>
-plan-dev-wu: init-dev-wu
-	@terraform workspace new dev && terraform workspace select dev
-ifeq (DEFAULT,$(module))
-	@terraform plan -var-file=terraform_wu.tfvars -parallelism=20
-else
-	@terraform plan -target=$(module)
-endif
 
 ## plan-prod: run terraform plan on the prod workspace. usage: make plan-prod module=<module name>
 plan-prod-wu: init-prod-wu
@@ -217,15 +204,6 @@ else
 	@terraform plan -target=$(module)
 endif
 
-## plan-qa: run terraform plan on the qa workspace. usage: make plan-qa module=<module name>
-plan-qa-wu: init-qa-wu
-	@terraform workspace new qa && terraform workspace select qa
-ifeq (DEFAULT,$(module))
-	@terraform plan -var-file=terraform_wu.tfvars -parallelism=20
-else
-	@terraform plan -target=$(module)
-endif
-
 ## plan-stg: run terraform plan on the stg workspace. usage: make plan-stg module=<module name>
 plan-stg-wu: init-stg-wu
 	@terraform workspace new stg && terraform workspace select stg
@@ -242,15 +220,6 @@ ifeq (DEFAULT,$(module))
 	@terraform plan -var-file=terraform_wu.tfvars -parallelism=20
 else
 	@terraform plan -target=$(module)
-endif
-
-## apply-dev: run terraform apply on the dev workspace. usage: make apply-dev module=<module name>
-apply-dev-wu: init-dev-wu
-	@terraform workspace select dev
-ifeq (DEFAULT,$(module))
-	@terraform apply -var-file=terraform_wu.tfvars -parallelism=20
-else
-	@terraform apply -target=$(module)
 endif
 
 ## apply-prod: run terraform apply on the prod workspace. usage: make apply-prod module=<module name>
@@ -280,15 +249,6 @@ else
 	@terraform apply -target=$(module)
 endif
 
-## apply-qa: run terraform apply on the qa workspace. usage: make apply-qa module=<module name>
-apply-qa-wu: init-qa-wu
-	@terraform workspace select qa
-ifeq (DEFAULT,$(module))
-	@terraform apply -var-file=terraform_wu.tfvars -parallelism=20
-else
-	@terraform apply -target=$(module)
-endif
-
 ## apply-stg: run terraform apply on the stg workspace. usage: make apply-stg module=<module name>
 apply-stg-wu: init-stg-wu
 	@terraform workspace select stg
@@ -307,13 +267,19 @@ else
 	@terraform apply -target=$(module)
 endif
 
-plan-eu: plan-dev-eu plan-prod-eu plan-psr-eu plan-qa-eu plan-stg-eu plan-stb-eu
+delete-env-eu:
+	@terraform workspace select default && terraform workspace delete dev && terraform workspace delete prod && terraform workspace delete hub && terraform workspace delete psr && terraform workspace delete qa && terraform workspace delete stg && terraform workspace delete stb
 
-apply-eu: apply-dev-eu apply-prod-eu apply-psr-eu apply-qa-eu apply-stg-eu apply-stb-eu
+delete-env-wu:
+	@terraform workspace select default && terraform workspace delete prod && terraform workspace delete hub && terraform workspace delete psr  && terraform workspace delete stg && terraform workspace delete stb
 
-plan-wu: plan-dev-wu plan-prod-wu plan-psr-wu plan-qa-wu plan-stg-wu plan-stb-wu
+plan-eu: plan-dev-eu plan-prod-eu plan-hub-eu plan-psr-eu plan-qa-eu plan-stg-eu plan-stb-eu 
 
-apply-wu: apply-dev-wu apply-prod-wu apply-psr-wu apply-qa-wu apply-stg-wu apply-stb-wu
+apply-eu: apply-dev-eu apply-prod-eu apply-hub-eu apply-psr-eu apply-qa-eu apply-stg-eu apply-stb-eu
+
+plan-wu: plan-prod-wu plan-hub-wu plan-psr-wu plan-stg-wu plan-stb-wu
+
+apply-wu: apply-prod-wu apply-hub-wu apply-psr-wu apply-stg-wu apply-stb-wu
 ##
 help: Makefile
 	@sed -n 's/^##//p' $<
