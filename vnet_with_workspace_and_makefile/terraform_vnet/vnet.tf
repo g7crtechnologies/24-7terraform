@@ -32,6 +32,13 @@ resource "azurerm_subnet" "subnet" {
   virtual_network_name = azurerm_virtual_network.vnet[each.value.skey].name
 }
 
+resource "azurerm_route_table" "route_table" {
+  for_each            = var.subnet_prefixes[terraform.workspace]
+  name                = "tfs-rt-${each.value["skey"]}-${each.value["name"]}-${var.region}-${each.value["product"]}"
+  resource_group_name = local.resource_group_name
+  location            = local.location
+}
+
 resource "azurerm_network_security_group" "nsg" {
   for_each            = var.subnet_prefixes[terraform.workspace]
   name                = "tfs-nsg-${each.value["skey"]}-${each.value["name"]}-${var.region}-${each.value["product"]}"
@@ -43,6 +50,15 @@ resource "azurerm_subnet_network_security_group_association" "sub_nsg" {
   for_each                  = var.subnet_prefixes[terraform.workspace]
   network_security_group_id = azurerm_network_security_group.nsg[each.key].id
   subnet_id                 = azurerm_subnet.subnet[each.key].id
+  depends_on = [
+    azurerm_network_security_group.nsg, azurerm_subnet.subnet
+  ]
+}
+
+resource "azurerm_subnet_route_table_association" "sub_rt" {
+  for_each       = var.subnet_prefixes[terraform.workspace]
+  route_table_id = azurerm_route_table.route_table[each.key].id
+  subnet_id      = azurerm_subnet.subnet[each.key].id
   depends_on = [
     azurerm_network_security_group.nsg, azurerm_subnet.subnet
   ]
