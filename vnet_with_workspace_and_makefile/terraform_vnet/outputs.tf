@@ -1,6 +1,6 @@
 output "vnet_id" {
   value = tomap({
-    for k, s in azurerm_virtual_network.vnet : k => s.id
+    for k, s in module.vnet : k => s.id
   })
 
 }
