@@ -267,12 +267,6 @@ else
 	@terraform apply -target=$(module)
 endif
 
-delete-env-eu:
-	@terraform workspace select default && terraform workspace delete dev && terraform workspace delete prod && terraform workspace delete hub && terraform workspace delete psr && terraform workspace delete qa && terraform workspace delete stg && terraform workspace delete stb
-
-delete-env-wu:
-	@terraform workspace select default && terraform workspace delete prod && terraform workspace delete hub && terraform workspace delete psr  && terraform workspace delete stg && terraform workspace delete stb
-
 plan-eu: plan-dev-eu plan-prod-eu plan-hub-eu plan-psr-eu plan-qa-eu plan-stg-eu plan-stb-eu 
 
 apply-eu: apply-dev-eu apply-prod-eu apply-hub-eu apply-psr-eu apply-qa-eu apply-stg-eu apply-stb-eu
