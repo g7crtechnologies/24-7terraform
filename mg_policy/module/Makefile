@@ -1,6 +1,6 @@
 .PHONY: init-iac, init-root, init-hub, init-speech-application, plan-iac, plan-root plan-hub, plan-speech-application, apply-iac, apply-root, apply-root, apply-speech-application, plan-policy, help
 module=DEFAULT
-approve=-auto-approve
+
 ##
 ## init: run terraform init. usage: make init-{env} [ env = init-iac / init-root ]
 az-iac:
@@ -13,13 +13,13 @@ az-speech-application:
 	@az account set --name=Gaurav-and-Pulluru-MSDN
 
 init-iac: az-iac
-	@terraform init -backend-config=storage_account_name="managementgroup123" -backend-config=container_name="managementgroup" -backend-config=key="mg/products/speech-application/iac/default.tfstate" -backend-config=resource_group_name="management_group" -upgrade -reconfigure -var-file=iac.tfvars
+	@terraform init -backend-config=storage_account_name="managementgroup123" -backend-config=container_name="managementgroup" -backend-config=key="policy/iac/default.tfstate" -backend-config=resource_group_name="management_group" -upgrade -reconfigure -var-file=iac.tfvars
 init-root: az-root
-	@terraform init -backend-config=storage_account_name="managementgroup123" -backend-config=container_name="managementgroup" -backend-config=key="mg/products/speech-application/root/default.tfstate" -backend-config=resource_group_name="management_group" -upgrade -reconfigure -var-file=root.tfvars
+	@terraform init -backend-config=storage_account_name="managementgroup123" -backend-config=container_name="managementgroup" -backend-config=key="policy/root/default.tfstate" -backend-config=resource_group_name="management_group" -upgrade -reconfigure -var-file=root.tfvars
 init-hub: az-hub
-	@terraform init -backend-config=storage_account_name="managementgroup123" -backend-config=container_name="managementgroup" -backend-config=key="mg/hub/default.tfstate" -backend-config=resource_group_name="management_group" -upgrade -reconfigure -var-file=hub.tfvars	
+	@terraform init -backend-config=storage_account_name="managementgroup123" -backend-config=container_name="managementgroup" -backend-config=key="policy/hub/default.tfstate" -backend-config=resource_group_name="management_group" -upgrade -reconfigure -var-file=hub.tfvars	
 init-speech-application: az-speech-application
-	@terraform init -backend-config=storage_account_name="managementgroup123" -backend-config=container_name="managementgroup" -backend-config=key="mg/products/speech-application/default.tfstate" -backend-config=resource_group_name="management_group" -upgrade -reconfigure -var-file=speech_application.tfvars
+	@terraform init -backend-config=storage_account_name="managementgroup123" -backend-config=container_name="managementgroup" -backend-config=key="policy/speech-application/default.tfstate" -backend-config=resource_group_name="management_group" -upgrade -reconfigure -var-file=speech_application.tfvars
 
 ## plan-iac: run terraform plan on the staging workspace. usage: make plan-iac module=<module name>
 plan-iac: init-iac
@@ -56,7 +56,7 @@ endif
 ## apply-iac: run terraform apply on the iac workspace. usage: make apply-iac module=<module name>
 apply-iac: init-iac
 ifeq (DEFAULT,$(module))
-	@terraform apply -var-file=iac.tfvars $(approve) -parallelism=20
+	@terraform apply -var-file=iac.tfvars -parallelism=20
 else
 	@terraform apply -target=$(module)
 endif
@@ -64,7 +64,7 @@ endif
 ## apply-root: run terraform apply on the root workspace. usage: make apply-root module=<module name>
 apply-root: init-root
 ifeq (DEFAULT,$(module))
-	@terraform apply -var-file=root.tfvars $(approve) -parallelism=20
+	@terraform apply -var-file=root.tfvars -parallelism=20
 else
 	@terraform apply -target=$(module)
 endif
@@ -72,7 +72,7 @@ endif
 ## apply-hub: run terraform apply on the hub workspace. usage: make apply-hub module=<module name>
 apply-hub: init-hub
 ifeq (DEFAULT,$(module))
-	@terraform apply -var-file=hub.tfvars $(approve) -parallelism=20
+	@terraform apply -var-file=hub.tfvars -parallelism=20
 else
 	@terraform apply -target=$(module)
 endif
@@ -80,7 +80,7 @@ endif
 ## apply-speech-application: run terraform apply on the speech-application workspace. usage: make apply-speech-application module=<module name>
 apply-speech-application: init-speech-application
 ifeq (DEFAULT,$(module))
-	@terraform apply -var-file=speech_application.tfvars $(approve) -parallelism=20
+	@terraform apply -var-file=speech_application.tfvars -parallelism=20
 	@cd .\env\ && make apply-mg
 else
 	@terraform apply -target=$(module)
