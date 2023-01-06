@@ -1,0 +1,6 @@
+rg_sub_source             = "rg_source"
+vnet_name_sub_source      = "vnet_source"
+rg_sub_destination        = "rg_destination"
+vnet_name_sub_destination = "vnet_destination"
+peering_name_source       = "source_destination"
+peering_name_destination  = "destination_source"
