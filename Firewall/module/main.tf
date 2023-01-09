@@ -24,7 +24,7 @@ resource "azurerm_resource_group" "rg" {
 # Firewall Subnet Creation or selection
 #----------------------------------------------------------
 data "azurerm_subnet" "fw-snet" {
-  name                 = ""
+  name                 = "fw-snet"
   resource_group_name  = local.resource_group_name
   virtual_network_name = var.virtual_network_name
 }
@@ -34,7 +34,7 @@ data "azurerm_subnet" "fw-snet" {
 #----------------------------------------------------------
 data "azurerm_subnet" "fw-mgnt-snet" {
   count                = var.enable_forced_tunneling ? 1 : 0
-  name                 = ""
+  name                 = "fw-mg-snet"
   resource_group_name  = local.resource_group_name
   virtual_network_name = var.virtual_network_name
 
@@ -76,7 +76,7 @@ resource "azurerm_public_ip" "fw-mgnt-pip" {
 # Azure Firewall 
 #-----------------
 resource "azurerm_firewall" "fw" {
-  name                = format("%s", "tfs-fw-${var.firewall_config.name}-${local.location}")
+  name                = "AzureFirewallSubnet"
   resource_group_name = local.resource_group_name
   location            = local.location
   sku_name            = var.firewall_config.sku_name
@@ -88,7 +88,7 @@ dynamic "ip_configuration" {
     iterator = ip
     content {
       name                 = ip.key
-      subnet_id            = ip.key == var.public_ip_names[0] ? azurerm_subnet.fw-snet.id : null
+      subnet_id            = ip.key == var.public_ip_names[0] ? data.azurerm_subnet.fw-snet.id : null
       public_ip_address_id = azurerm_public_ip.fw-pip[ip.key].id
     }
   }
