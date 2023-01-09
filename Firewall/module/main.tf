@@ -24,7 +24,7 @@ resource "azurerm_resource_group" "rg" {
 # Firewall Subnet Creation or selection
 #----------------------------------------------------------
 data "azurerm_subnet" "fw-snet" {
-  name                 = "fw-snet"
+  name                 = "AzureFirewallSubnet"
   resource_group_name  = local.resource_group_name
   virtual_network_name = var.virtual_network_name
 }
@@ -76,7 +76,7 @@ resource "azurerm_public_ip" "fw-mgnt-pip" {
 # Azure Firewall 
 #-----------------
 resource "azurerm_firewall" "fw" {
-  name                = "AzureFirewallSubnet"
+  name                = format("%s", "tfs-fw-${var.firewall_config.name}-${local.location}")
   resource_group_name = local.resource_group_name
   location            = local.location
   sku_name            = var.firewall_config.sku_name
