@@ -1,4 +1,4 @@
-module "lb_demo_247" {
+module "load_balancer" {
   source              = "../module"
   location            = var.location
   subnet_name         = var.subnet_name
