@@ -1,4 +1,4 @@
-module "zs-oyo-acpmm-web" {
+module "redis" {
   source = "../../module/redis"
 
   create_resource_group = false
@@ -6,11 +6,11 @@ module "zs-oyo-acpmm-web" {
   location              = var.location
   pvt_dns_zone_name     = var.pvt_dns_zone_name
   pvt_rg_name           = var.pvt_rg_name
-  pe_resource_name      = "zs-oyo-acpmm-web"
-  pse_resource_name     = "zs-oyo-acpmm-web"
-  redis_instance_name   = "zs-oyo-acpmm-web"
+  pe_resource_name      = "tfs-rg-hub-eu-speech"
+  pse_resource_name     = "tfs-rg-hub-eu-speech"
+  redis_instance_name   = "tfs-rg-hub-eu-speech"
   redis_server_settings = {
-    name                          = "zs-oyo-acpmm-web"
+    name                          = "tfs-rg-hub-eu-speech"
     sku_name                      = "Basic"
     redis_version                 = 6
     capacity                      = 1
@@ -29,14 +29,14 @@ module "zs-oyo-acpmm-web" {
   subnet_name             = var.subnet_name
   vnet_name               = var.vnet_name
   vnet_rg_name            = var.vnet_rg_name
-  storage_account_name    = "zsoyoroomstf"
-  stg_rg_name             = "zs-oyorooms-tf"
+  storage_account_name    = "tfs-storage"
+  stg_rg_name             = "tfs-rg-strg-eu-speech"
   tags = {
     "App"       = "redis"
-    "Name"      = "zs-oyo-acpmm-web"
-    "Env"       = "stg"
-    "Team"      = "acpmm"
-    "Service"   = "web"
+    "Name"      = "tfs-rg-hub-eu-speechb"
+    "Env"       = "hub"
+    "Team"      = "speech"
+    "Service"   = "speech"
     "Terraform" = "1"
   }
   storage_account_id = data.azurerm_storage_account.diagnostic.id
