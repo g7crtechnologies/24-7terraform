@@ -3,9 +3,9 @@
 This repository is the collection of all the base components required for landing zone for 247.ai's Azure Cloud Infrastructure
 All modules are based on Terraform workspace and Makefile.  
 Required tools :
-•	Az-cli
-•	Makefile
-•	Terraform
+-	Az-cli
+-	Makefile
+-	Terraform
 These tools should be installed to run this project.
 for initiate the deployment we need AZ-cli to login to the azure portal need to setup some components for landing zone 
 All the tfstate of resource group and other modules will store in  storage account as a backend configuration that is configured in Makefile for each environment.  
@@ -15,9 +15,9 @@ the backend of all modules is going to be stored in "tfsstrg<environment>tfstate
 Terraform Workspace 
 We are using terraform workspace for different environments so it will not create a single tfstate file and no need re-write the code for different environments 
 These are the modules that are using workspaces
-•	Resource group
-•	Virtual network
-•	Load balancer 
+-	Resource group
+-	Virtual network
+-	Load balancer 
 Workspaces need to be created before running the makefile commands for the below module’s workspace name should be same as these names
 { dev, psr, qa, stg, stb, prod, hub}
 Commands for workspaces 
@@ -32,17 +32,17 @@ The Flow to deploy the landing zone.
 •	first, we will create the management_groups in the root directory. 
 This module will deploy a hierarchal structure of management groups in root management group or in root tenant for each management group tfstate file will be different (root folder is “mg”)
 commands to run makefile to deploy mg. 
-•	“make plan-mg”  to initialize and plan the whole management group hierarchically.
-•	“make apply-mg”  to apply and initialize.
+-	“make plan-mg”  to initialize and plan the whole management group hierarchically.
+-	“make apply-mg”  to apply and initialize.
 
 •	Resource Group 
 This is the root module for all other modules. This will create resource group in all subscription in both eastus and westus location. followed by these commands. 
 Environments – {dev, prod, psr, hub, qa, stg, stb}
 eu – for eastus
 wu – for westus
-•	“Az-< Environments >” to set the subscription. 
-•	“make plan-< Environments >-eu”  to plan the terraform 
-•	“make apply-< Environments >-eu” to apply the terraform 
+-	“Az-< Environments >” to set the subscription. 
+-	“make plan-< Environments >-eu”  to plan the terraform 
+-	“make apply-< Environments >-eu” to apply the terraform 
 
 •	Virtual network
 This module creates the virtual network for each environment along with nsg’ s , route tables
