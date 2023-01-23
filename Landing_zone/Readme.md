@@ -35,10 +35,13 @@
 ###### This is the root module for all other modules. This will create resource group in all subscription in both eastus and westus location. followed by these commands. 
 ###### Environments – {dev, prod, psr, hub, qa, stg, stb}
 ###### eu – for eastus
-###### wu – for westus
        -	“Az-< Environments >” to set the subscription. 
        -	“make plan-< Environments >-eu”  to plan the terraform 
-       -	“make apply-< Environments >-eu” to apply the terraform 
+       -	“make apply-< Environments >-eu” to apply the terraform
+###### wu – for westus
+       -	“Az-< Environments >” to set the subscription. 
+       -	“make plan-< Environments >-wu”  to plan the terraform 
+       -	“make apply-< Environments >-wu” to apply the terraform 
 
 ## **Virtual network**
 ###### This module creates the virtual network for each environment along with nsg’ s , route tables
