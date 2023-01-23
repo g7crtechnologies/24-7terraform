@@ -1,4 +1,15 @@
 <!-- BEGIN_TF_DOCS -->
+## **Firewall**
+The firewall module will create firewall in hub subscription in both region
+###### Make file command for firewall (eastus)
+       -	“Az-fw-eu” to set the subscription. 
+       -	“make plan-fw-eu”  to plan the terraform 
+       -	“make apply-fw-eu” to apply the terraform 
+###### Make file command for firewall (westus)
+       -	“Az-fw-wu” to set the subscription. 
+       -	“make plan-fw-wu”  to plan the terraform 
+       -	“make apply-fw-wu” to apply the terraform 
+
 ## Requirements
 
 | Name | Version |
