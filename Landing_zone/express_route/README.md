@@ -1,4 +1,17 @@
 <!-- BEGIN_TF_DOCS -->
+## **Express route**
+To create express route and virtual network gateway in both hub subscription 
+These are the commands
+###### For eastus
+       -	“make az-er-eu” to set hub subscription in eastus
+       -	“make plan-er-eu”  to plan the terraform 
+       -	“make apply-er-eu” to apply the terraform 
+###### For westus 
+       -	“make az-er-wu” to set hub subscription in westus
+       -	“make plan-er-wu”  to plan the terraform 
+       -	“make apply-er-wu” to apply the terraform
+
+
 ## Requirements
 
 | Name | Version |
