@@ -17,7 +17,6 @@ locals {
 #------------------------------------------
 
 data "azurerm_key_vault" "key_vault" {
-  count               = var.subscription_enable == true ? 1 : 0
   name                = local.key_vault_name
   resource_group_name = local.key_vault_rg_name
 
@@ -27,9 +26,8 @@ data "azurerm_key_vault" "key_vault" {
 #------------------------------------------
 
 data "azurerm_key_vault_secret" "secrets" {
-  count        = var.subscription_enable == true ? 1 : 0
   name         = local.secrets_name
-  key_vault_id = data.azurerm_key_vault.key_vault[count.index].id
+  key_vault_id = data.azurerm_key_vault.key_vault.id
 }
 
 #------------------------------------------
@@ -41,5 +39,5 @@ resource "azurerm_management_group" "mg" {
   display_name               = local.display_name
   name                       = local.display_name
   parent_management_group_id = var.pid == true ? local.parent_id : var.remote_state
-  subscription_ids           = var.subscription_enable == true ? [data.azurerm_key_vault_secret.secrets.1.value] : null
+  subscription_ids           = var.subscription_enable == true ? [data.azurerm_key_vault_secret.secrets.value] : null
 }
