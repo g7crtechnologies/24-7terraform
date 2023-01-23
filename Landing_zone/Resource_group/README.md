@@ -8,8 +8,8 @@ Environments – {dev, prod, psr, hub, qa, stg, stb}
        -	“make apply-< Environments >-eu” to apply the terraform 
 ###### wu – for westus
        -	“Az-< Environments >” to set the subscription. 
-       -	“make plan-< Environments >-eu”  to plan the terraform 
-       -	“make apply-< Environments >-eu” to apply the terraform 
+       -	“make plan-< Environments >-wu”  to plan the terraform 
+       -	“make apply-< Environments >-wu” to apply the terraform 
 
 ## Requirements
 
