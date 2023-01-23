@@ -6,8 +6,9 @@
        -    Makefile
        -    Terraform
 ###### These tools should be installed to run this project.
-for initiate the deployment we need AZ-cli to login to the azure portal need to setup some components for landing zone 
-All the tfstate of resource group and other modules will store in  storage account as a backend configuration that is configured in Makefile for each environment.   All the Storage account we need to setup from portal only in each subscription. the backend of all modules is going to be stored in "tfsstrg<environment>tfstate" for each environment there is a separate storage account in different different subscription.  
+###### for initiate the deployment we need AZ-cli to login to the azure portal need to setup some components for landing zone 
+###### All the tfstate of resource group and other modules will store in  storage account as a backend configuration that is configured in Makefile for each environment.   All the Storage account we need to setup from portal only in each subscription. the backend of all modules is going to be stored in 
+###### "tfsstrg<environment>tfstate" for each environment there is a separate storage account in different different subscription.  
 
 ## **Terraform Workspace**
 ###### We are using terraform workspace for different environments so it will not create a single tfstate file and no need re-write the code for different environments
