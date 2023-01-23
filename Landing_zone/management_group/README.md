@@ -2,8 +2,10 @@
 # Management Group
 this module will create management group in desired structure for 247.ai for each mg it has different tfvars file it will assign subscription also on which management group you want assign 
    makefile commands
-   -    "make plan-mg"    to make a plan for all the mangement group 
-   -    "make apply-mg"   to deploy the all mangement group
+   
+    -     "make plan-mg"    to make a plan for all the mangement group 
+    -     "make apply-mg"   to deploy the all mangement group
+to deploy one by one you can refer makefile for management group
 ## Requirements
 
 | Name | Version |
