@@ -1,9 +1,11 @@
 <!-- BEGIN_TF_DOCS -->
 ## **Load balancer**
 This will deploy load balancer for each vnet in different subscription 
+
        -	“Az-< Environments >” to set the subscription. 
        -	“make plan-< Environments >-eu”  to plan the terraform 
        -	“make apply-< Environments >-eu” to apply the terraform 
+
 Commands are same for westus region  “eu” replaced by “wu”
 
 ## Requirements
