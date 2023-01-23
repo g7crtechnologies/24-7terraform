@@ -1,8 +1,11 @@
 <!-- BEGIN_TF_DOCS -->
 ## **Resource Group** 
-###### This is the root module for all other modules. This will create resource group in all subscription in both eastus and westus location. followed by these commands. 
-###### Environments – {dev, prod, psr, hub, qa, stg, stb}
+This is the root module for all other modules. This will create resource group in all subscription in both eastus and westus location. followed by these commands. 
+Environments – {dev, prod, psr, hub, qa, stg, stb}
 ###### eu – for eastus
+       -	“Az-< Environments >” to set the subscription. 
+       -	“make plan-< Environments >-eu”  to plan the terraform 
+       -	“make apply-< Environments >-eu” to apply the terraform 
 ###### wu – for westus
        -	“Az-< Environments >” to set the subscription. 
        -	“make plan-< Environments >-eu”  to plan the terraform 
