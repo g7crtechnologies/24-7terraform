@@ -1,6 +1,14 @@
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
+## **Virtual network**
+This module creates the virtual network for each environment along with nsg’ s , route tables
+And subnets 
+
+       -    “Az-< Environments >” to set the subscription. 
+       -	“make plan-< Environments >-eu”  to plan the terraform 
+       -	“make apply-< Environments >-eu” to apply the terraform 
+
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >=0.12 |
