@@ -1,4 +1,22 @@
 <!-- BEGIN_TF_DOCS -->
+## **Azure policy**
+This module will apply all the policies on the management groups
+###### For iac mg 
+       -	“make plan-iac”  to plan the terraform 
+       -	“make apply-iac” to apply the terraform 
+###### For root mg
+       -	“make plan-root”  to plan the terraform 
+       -	“make apply-root” to apply the terraform 
+###### For hub mg
+       -	“make plan-hub”  to plan the terraform 
+       -	“make apply-hub” to apply the terraform 
+###### For speech-application mg
+       -	“make plan-speech-application”  to plan the terraform 
+       -	“make apply-speech-application” to apply the terraform 
+###### To apply all at once 
+       -	“make plan-policy”  to plan the terraform to all mg
+       -	“make apply-policy” to apply the terraform to all mg
+
 ## Requirements
 
 | Name | Version |
