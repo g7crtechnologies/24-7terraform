@@ -29,23 +29,24 @@ Workspaces need to be created before running the makefile commands for the below
 ## **Makefile**
 ###### Each module is using makefile. All the backend configuration and terraform related commands are configure in it all the makefile commands are given below The Flow to deploy the landing zone.
 
-###### first, we will create the management_groups in the root directory. 
-###### This module will deploy a hierarchal structure of management groups in root management group or in root tenant for each management group tfstate file will be ###### different (root folder is “mg”)
-###### commands to run makefile to deploy mg. 
+first, we will create the management_groups in the root directory. 
+This module will deploy a hierarchal structure of management groups in root management group or in root tenant for each management group tfstate file will be ###### different (root folder is “mg”)
+ commands to run makefile to deploy mg. 
+       
        -    “make plan-mg”  to initialize and plan the whole management group hierarchically.
        -    “make apply-mg”  to apply and initialize.
 
 # Management Group
 this module will create management group in desired structure for 247.ai for each mg it has different tfvars file it will assign subscription also on which management group you want assign 
-   makefile commands
+    makefile commands
    
     -     "make plan-mg"    to make a plan for all the mangement group 
     -     "make apply-mg"   to deploy the all mangement group
 to deploy one by one you can refer makefile for management group
 
 ## **Resource Group** 
-###### This is the root module for all other modules. This will create resource group in all subscription in both eastus and westus location. followed by these commands. 
-###### Environments – {dev, prod, psr, hub, qa, stg, stb}
+This is the root module for all other modules. This will create resource group in all subscription in both eastus and westus location. followed by these commands. 
+Environments – {dev, prod, psr, hub, qa, stg, stb}
 ###### eu – for eastus
        -	“Az-< Environments >” to set the subscription. 
        -	“make plan-< Environments >-eu”  to plan the terraform 
@@ -56,21 +57,24 @@ to deploy one by one you can refer makefile for management group
        -	“make apply-< Environments >-wu” to apply the terraform 
 
 ## **Virtual network**
-###### This module creates the virtual network for each environment along with nsg’ s , route tables
-###### And subnets 
+This module creates the virtual network for each environment along with nsg’ s , route tables
+And subnets 
+       
        -    “Az-< Environments >” to set the subscription. 
        -	“make plan-< Environments >-eu”  to plan the terraform 
        -	“make apply-< Environments >-eu” to apply the terraform 
 
 ## **Load balancer**
-###### This will deploy load balancer for each vnet in different subscription 
+This will deploy load balancer for each vnet in different subscription 
+       
        -	“Az-< Environments >” to set the subscription. 
        -	“make plan-< Environments >-eu”  to plan the terraform 
        -	“make apply-< Environments >-eu” to apply the terraform 
-##### Commands are same for westus region  “eu” replaced by “wu”
+       
+Commands are same for westus region  “eu” replaced by “wu”
 
 ## **Firewall**
-###### The firewall module will create firewall in hub subscription in both region
+The firewall module will create firewall in hub subscription in both region
 ###### Make file command for firewall (eastus)
        -	“Az-fw-eu” to set the subscription. 
        -	“make plan-fw-eu”  to plan the terraform 
@@ -81,7 +85,7 @@ to deploy one by one you can refer makefile for management group
        -	“make apply-fw-wu” to apply the terraform 
 
 ## **Azure policy**
-###### This module will apply all the policies on the management groups
+This module will apply all the policies on the management groups
 ###### For iac mg 
        -	“make plan-iac”  to plan the terraform 
        -	“make apply-iac” to apply the terraform 
@@ -98,8 +102,8 @@ to deploy one by one you can refer makefile for management group
        -	“make plan-policy”  to plan the terraform to all mg
        -	“make apply-policy” to apply the terraform to all mg
 ## **Express route**
-###### To create express route and virtual network gateway in both hub subscription 
-###### These are the commands
+To create express route and virtual network gateway in both hub subscription 
+These are the commands
 ###### For eastus
        -	“make az-er-eu” to set hub subscription in eastus
        -	“make plan-er-eu”  to plan the terraform 
