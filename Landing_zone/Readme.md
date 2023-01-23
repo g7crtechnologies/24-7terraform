@@ -27,7 +27,7 @@ Workspaces need to be created before running the makefile commands for the below
        -    Terraform workspace destroy <workspace _name>   -to delete the workspace
 
 ## **Makefile**
-###### Each module is using makefile. All the backend configuration and terraform related commands are configure in it all the makefile commands are given below The Flow to deploy the landing zone.
+Each module is using makefile. All the backend configuration and terraform related commands are configure in it all the makefile commands are given below The Flow to deploy the landing zone.
 
 first, we will create the management_groups in the root directory. 
 This module will deploy a hierarchal structure of management groups in root management group or in root tenant for each management group tfstate file will be ###### different (root folder is “mg”)
