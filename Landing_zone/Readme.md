@@ -47,54 +47,53 @@ wu – for westus
 •	Virtual network
 This module creates the virtual network for each environment along with nsg’ s , route tables
 And subnets 
-•	“Az-< Environments >” to set the subscription. 
-•	“make plan-< Environments >-eu”  to plan the terraform 
-•	“make apply-< Environments >-eu” to apply the terraform 
+- “Az-< Environments >” to set the subscription. 
+-	“make plan-< Environments >-eu”  to plan the terraform 
+-	“make apply-< Environments >-eu” to apply the terraform 
 
 •	Load balancer
 This will deploy load balancer for each vnet in different subscription 
-•	“Az-< Environments >” to set the subscription. 
-•	“make plan-< Environments >-eu”  to plan the terraform 
-•	“make apply-< Environments >-eu” to apply the terraform 
+-	“Az-< Environments >” to set the subscription. 
+-	“make plan-< Environments >-eu”  to plan the terraform 
+-	“make apply-< Environments >-eu” to apply the terraform 
 Commands are same for westus region  “eu” replaced by “wu”
 
 •	 Firewall
 The firewall module will create firewall in hub subscription in both region
 Make file command for firewall (eastus)
-•	“Az-fw-eu” to set the subscription. 
-•	“make plan-fw-eu”  to plan the terraform 
-•	“make apply-fw-eu” to apply the terraform 
+-	“Az-fw-eu” to set the subscription. 
+-	“make plan-fw-eu”  to plan the terraform 
+-	“make apply-fw-eu” to apply the terraform 
 Make file command for firewall (westus)
-•	“Az-fw-wu” to set the subscription. 
-•	“make plan-fw-wu”  to plan the terraform 
-•	“make apply-fw-wu” to apply the terraform 
+-	“Az-fw-wu” to set the subscription. 
+-	“make plan-fw-wu”  to plan the terraform 
+-	“make apply-fw-wu” to apply the terraform 
 
 •	Azure policy
 This module will apply all the policies on the management groups
 For iac mg 
-•	“make plan-iac”  to plan the terraform 
-•	“make apply-iac” to apply the terraform 
+-	“make plan-iac”  to plan the terraform 
+-	“make apply-iac” to apply the terraform 
 For root mg
-•	“make plan-root”  to plan the terraform 
-•	“make apply-root” to apply the terraform 
+-	“make plan-root”  to plan the terraform 
+-	“make apply-root” to apply the terraform 
 For hub mg
-•	“make plan-hub”  to plan the terraform 
-•	“make apply-hub” to apply the terraform 
+-	“make plan-hub”  to plan the terraform 
+-	“make apply-hub” to apply the terraform 
 For speech-application mg
-•	“make plan-speech-application”  to plan the terraform 
-•	“make apply-speech-application” to apply the terraform 
+-	“make plan-speech-application”  to plan the terraform 
+-	“make apply-speech-application” to apply the terraform 
 To apply all at once 
-•	“make plan-policy”  to plan the terraform to all mg
-•	“make apply-policy” to apply the terraform to all mg
-
+-	“make plan-policy”  to plan the terraform to all mg
+-	“make apply-policy” to apply the terraform to all mg
 •	Express route
 To create express route and virtual network gateway in both hub subscription 
 These are the commands
 For eastus
-•	“make az-er-eu” to set hub subscription in eastus
-•	“make plan-er-eu”  to plan the terraform 
-•	“make apply-er-eu” to apply the terraform 
+-	“make az-er-eu” to set hub subscription in eastus
+-	“make plan-er-eu”  to plan the terraform 
+-	“make apply-er-eu” to apply the terraform 
 For westus
-•	“make az-er-wu” to set hub subscription in westus
-•	“make plan-er-wu”  to plan the terraform 
-•	“make apply-er-wu” to apply the terraform 
+-	“make az-er-wu” to set hub subscription in westus
+-	“make plan-er-wu”  to plan the terraform 
+-	“make apply-er-wu” to apply the terraform 
