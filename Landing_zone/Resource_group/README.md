@@ -44,5 +44,5 @@ No resources.
 
 | Name | Description |
 |------|-------------|
-| <a name="output_rg_name"></a> [rg\_name](#output\_rg\_name) | ------------------------------------------ Outpot for Resource Group ------------------------------------------ |
+| <a name="output_rg_name"></a> [rg\_name](#output\_rg\_name) | ------------------------------------------ Output for Resource Group ------------------------------------------ |
 <!-- END_TF_DOCS -->
