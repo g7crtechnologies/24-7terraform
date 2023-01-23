@@ -13,7 +13,7 @@
 ## **Terraform Workspace**
 ###### We are using terraform workspace for different environments so it will not create a single tfstate file and no need re-write the code for different environments
        These are the modules that are using workspaces :
-       -    Resource grou
+       -    Resource group
        -    Virtual network
        -    Load balancer 
 ###### Workspaces need to be created before running the makefile commands for the below module’s workspace name should be same as these names { dev, psr, qa, stg, stb, prod, hub}
@@ -30,6 +30,14 @@
 ###### commands to run makefile to deploy mg. 
        -    “make plan-mg”  to initialize and plan the whole management group hierarchically.
        -    “make apply-mg”  to apply and initialize.
+
+# Management Group
+this module will create management group in desired structure for 247.ai for each mg it has different tfvars file it will assign subscription also on which management group you want assign 
+   makefile commands
+   
+    -     "make plan-mg"    to make a plan for all the mangement group 
+    -     "make apply-mg"   to deploy the all mangement group
+to deploy one by one you can refer makefile for management group
 
 ## **Resource Group** 
 ###### This is the root module for all other modules. This will create resource group in all subscription in both eastus and westus location. followed by these commands. 
