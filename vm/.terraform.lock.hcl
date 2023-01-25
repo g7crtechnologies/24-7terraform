@@ -1,0 +1,39 @@
+# This file is maintained automatically by "terraform init".
+# Manual edits may be lost in future updates.
+
+provider "registry.terraform.io/hashicorp/azurerm" {
+  version     = "3.37.0"
+  constraints = "3.37.0"
+  hashes = [
+    "h1:u03+GJpVH8zpDABS52M6UOlX7l0EsdUeSaIunKQRolU=",
+    "zh:2a7bda0b7679d1c791c762103a22f333b544b6e6776c4177f33bafc9cc28c919",
+    "zh:49ff49670c349f918017315838a43ece09bf6f1bf7721b992f1cadbceb273c62",
+    "zh:55c9346d03380585e17616b79c4233b726d6fb9efa1921848834fc881e5d7d54",
+    "zh:5ab117b56a4236ea29926e9d95c27d7bf8ae6706d0fffb76c0b1bfe67bf3a78e",
+    "zh:5cfc086d5d56308edb3e68aac5f8a448ddc6e56541be7b152ae886399e9b2c69",
+    "zh:7a8929ed38152aac6652711f32193c8582bc996f8fa73879a3ac7a9bf88d2460",
+    "zh:895294e90a37f719975fcd2269b95e973147e48ec0ebb9c2fe472bc93531b49c",
+    "zh:8baa5e2b6e5b02df5b45d253a3aea93f22619920cf9577290d682b59a6d5664b",
+    "zh:b146a732c7909238c10d216b92a35092be4f72a0509a4c6742cc3245bf3b3bf3",
+    "zh:cedef898ccd512a6519eae3dff7eb0d581d2c3dad8e0001992da16ad1d7fded8",
+    "zh:f016d9ba94ea88476883b4d63cff88a0225974e0a8b8c3e8555f73c5de6f7119",
+    "zh:f569b65999264a9416862bca5cd2a6177d94ccb0424f3a4ef424428912b9cb3c",
+  ]
+}
+
+provider "registry.terraform.io/hashicorp/template" {
+  version = "2.2.0"
+  hashes = [
+    "h1:LN84cu+BZpVRvYlCzrbPfCRDaIelSyEx/W9Iwwgbnn4=",
+    "zh:01702196f0a0492ec07917db7aaa595843d8f171dc195f4c988d2ffca2a06386",
+    "zh:09aae3da826ba3d7df69efeb25d146a1de0d03e951d35019a0f80e4f58c89b53",
+    "zh:09ba83c0625b6fe0a954da6fbd0c355ac0b7f07f86c91a2a97849140fea49603",
+    "zh:0e3a6c8e16f17f19010accd0844187d524580d9fdb0731f675ffcf4afba03d16",
+    "zh:45f2c594b6f2f34ea663704cc72048b212fe7d16fb4cfd959365fa997228a776",
+    "zh:77ea3e5a0446784d77114b5e851c970a3dde1e08fa6de38210b8385d7605d451",
+    "zh:8a154388f3708e3df5a69122a23bdfaf760a523788a5081976b3d5616f7d30ae",
+    "zh:992843002f2db5a11e626b3fc23dc0c87ad3729b3b3cff08e32ffb3df97edbde",
+    "zh:ad906f4cebd3ec5e43d5cd6dc8f4c5c9cc3b33d2243c89c5fc18f97f7277b51d",
+    "zh:c979425ddb256511137ecd093e23283234da0154b7fa8b21c2687182d9aea8b2",
+  ]
+}
