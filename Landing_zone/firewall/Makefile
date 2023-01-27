@@ -11,7 +11,7 @@ az-fw-wu:
 init-fw-eu: az-fw-eu
 	@terraform init -backend-config=storage_account_name="tfsstrghubtfstate" -backend-config=container_name="tfstate" -backend-config=key="eastus/firewall/hub/default.tfstate" -backend-config=resource_group_name="tfs-rg-hub-eu-tfstate" -upgrade -reconfigure -var-file=terraform_eu.tfvars
 init-fw-wu: az-fw-wu
-	@terraform init -backend-config=storage_account_name="tfsstrghubtfstate" -backend-config=container_name="tfstate" -backend-config=key="westus/firewall/hub/default.tfstate" -backend-config=resource_group_name="tfs-rg-hub-eu-tfstate" -upgrade -reconfigure -var-file=terraform_wu.tfvars
+	@terraform init -backend-config=storage_account_name="tfsstrghubtfstate" -backend-config=container_name="tfstate" -backend-config=key="westus/firewall/hub/default.tfstate" -backend-config=resource_group_name="tfs-rg-hub-wu-tfstate" -upgrade -reconfigure -var-file=terraform_wu.tfvars
 ## plan-fw-eu: run terraform plan on the fw-eu workspace. usage: make plan-fw-eu module=<module name>
 plan-fw-eu: init-fw-eu
 ifeq (DEFAULT,$(module))
