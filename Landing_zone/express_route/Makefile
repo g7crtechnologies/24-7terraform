@@ -11,7 +11,7 @@ az-er-wu:
 init-er-eu: az-er-eu
 	@terraform init -backend-config=storage_account_name="tfsstrghubtfstate" -backend-config=container_name="tfstate" -backend-config=key="eastus/hub/express_route/terraform_eu/default.tfstate" -backend-config=resource_group_name="tfs-rg-hub-eu-tfstate" -upgrade -reconfigure -var-file=terraform_eu.tfvars
 init-er-wu: az-er-wu
-	@terraform init -backend-config=storage_account_name="tfsstrghubtfstate" -backend-config=container_name="tfstate" -backend-config=key="westus/hub/express_route/terraform_eu/default.tfstate" -backend-config=resource_group_name="tfs-rg-hub-eu-tfstate" -upgrade -reconfigure -var-file=terraform_eu.tfvars
+	@terraform init -backend-config=storage_account_name="tfsstrghubtfstate" -backend-config=container_name="tfstate" -backend-config=key="westus/hub/express_route/terraform_eu/default.tfstate" -backend-config=resource_group_name="tfs-rg-hub-wu-tfstate" -upgrade -reconfigure -var-file=terraform_eu.tfvars
 ## plan-er-eu: run terraform plan on the er-eu workspace. usage: make plan-er-eu module=<module name>
 plan-er-eu: init-er-eu
 ifeq (DEFAULT,$(module))
