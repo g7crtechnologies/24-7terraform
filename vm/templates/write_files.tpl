@@ -3,7 +3,7 @@
 #
 # This is the configuration syntax that the write_files module
 # will know how to understand. Encoding can be given b64 or gzip or (gz+b64).
-# The content will be decoded accordingly and then written to the path that is
+# The content will be decoded accordingly and then written toa the path that is
 # provided. 
 #
 # Note: Content strings here are truncated for example purposes.

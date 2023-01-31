@@ -1,16 +1,1 @@
-#cloud-config
-device_aliases: {'ephemeral0': '/dev/sdb','datadisk': '/dev/sdc1'}
-
-disk_setup:
-    /dev/disk/azure/scsi1/lun0:
-        table_type: gpt
-        layout: True
-        overwrite: True
-
-fs_setup:
-    - device: /dev/disk/azure/scsi1/lun0
-      partition: 1
-      filesystem: ext4
-
-mounts:
-    - ["/dev/disk/azure/scsi1/lun0-part1", "/datadisk", auto, "defaults,noexec,nofail"]
+ #cloud-config     # Partition and format data disks    disk_setup:    {% for i in range(var.disk_count) %}    /dev/{{ local.disk_letters[i] }}:    table_type: gpt    layout: true    overwrite: true    {% endfor %}    # Mount data disks    mounts:    {% for i in range(var.disk_count) %}    - [ /dev/{{ local.disk_letters[i] }}1, /mnt/data{{ i + 1 }}, ext4, "defaults,noatime,nofail" ]    {% endfor %}    # Write fstab    fstab:    {% for i in range(var.disk_count) %}    - [ /dev/{{ local.disk_letters[i] }}1, /mnt/data{{ i + 1 }}, ext4, "defaults,noatime,nofail", 0, 0 ]    {% endfor %}

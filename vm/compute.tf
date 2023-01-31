@@ -16,20 +16,33 @@ module "host_info" {
   source = "./host_info"
 }
 
+data "azurerm_resource_group" "rg" {
+  name = "tfvmex-resources"
+}
+data "azurerm_storage_account" "storeacc" {
+  resource_group_name = data.azurerm_resource_group.rg.name
+  name                = "tfsstorageacc"
+}
+
+# RSA key of size 4096 bits
+data "azurerm_ssh_public_key" "ssh_key" {
+  resource_group_name = data.azurerm_resource_group.rg.name
+  name                = "tfs_ssh"
+}
 
 # Render a multi-part cloud-init config making use of the part
 # above, and other source files
 
 resource "azurerm_availability_set" "aset" {
-  count                        = var.enable_vm_availability_set ? 1 : 0
-  name                         = lower("avail-${var.virtual_machine_name}-${data.azurerm_resource_group.rg.location}")
+  count                        = local.info.enable_vm_availability_set == true ? 1 : 0
+  name                         = lower("avail-${local.info.vm_name}-${data.azurerm_resource_group.rg.location}")
   resource_group_name          = data.azurerm_resource_group.rg.name
   location                     = data.azurerm_resource_group.rg.location
-  platform_fault_domain_count  = var.platform_fault_domain_count
-  platform_update_domain_count = var.platform_update_domain_count
-  proximity_placement_group_id = var.enable_proximity_placement_group ? azurerm_proximity_placement_group.appgrp.0.id : null
+  platform_fault_domain_count  = local.info.platform_fault_domain_count
+  platform_update_domain_count = local.info.platform_update_domain_count
+  proximity_placement_group_id = local.info.enable_proximity_placement_group == true ? azurerm_proximity_placement_group.appgrp.0.id : null
   managed                      = true
-  tags                         = merge({ "ResourceName" = lower("avail-${var.virtual_machine_name}-${data.azurerm_resource_group.rg.location}") }, var.tags, )
+  tags                         = merge({ "ResourceName" = lower("avail-${local.info.vm_name}-${data.azurerm_resource_group.rg.location}") }, local.info.tags, )
 
   lifecycle {
     ignore_changes = [
@@ -38,11 +51,11 @@ resource "azurerm_availability_set" "aset" {
   }
 }
 resource "azurerm_proximity_placement_group" "appgrp" {
-  count               = var.enable_proximity_placement_group ? 1 : 0
-  name                = lower("proxigrp-${var.virtual_machine_name}-${data.azurerm_resource_group.rg.location}")
+  count               = local.info.enable_proximity_placement_group == true ? 1 : 0
+  name                = lower("proxigrp-${local.info.vm_name}-${data.azurerm_resource_group.rg.location}")
   resource_group_name = data.azurerm_resource_group.rg.name
   location            = data.azurerm_resource_group.rg.location
-  tags                = merge({ "ResourceName" = lower("proxigrp-${var.virtual_machine_name}-${data.azurerm_resource_group.rg.location}") }, var.tags, )
+  tags                = merge({ "ResourceName" = lower("proxigrp-${local.info.vm_name}-${data.azurerm_resource_group.rg.location}") }, local.info.tags, )
 
   lifecycle {
     ignore_changes = [
@@ -52,16 +65,14 @@ resource "azurerm_proximity_placement_group" "appgrp" {
 }
 
 resource "azurerm_managed_disk" "new_data_disk" {
-  count                 = length(var.data_disk_name)
-  name                  = var.data_disk_name[count.index]
-  location              = var.resource_group_location
-  resource_group_name   = local.resource_group_name
-  storage_account_type  = var.data_disk_storage_acc_type
-  network_access_policy = "AllowPrivate"
-  create_option         = "Empty"
-  disk_size_gb          = var.disk_size_gb
-  disk_access_id        = azurerm_disk_access.diskaccess.id
-  tags                  = var.tags
+  count                = length(local.info.data_disk_name)
+  name                 = local.info.data_disk_name[count.index]
+  location             = local.location
+  resource_group_name  = local.rg_name
+  storage_account_type = local.info.data_disk_storage_acc_type
+  create_option        = "Empty"
+  disk_size_gb         = local.info.disk_size_gb
+  tags                 = local.info.tags
 }
 
 resource "azurerm_network_interface" "main" {
@@ -80,33 +91,31 @@ resource "azurerm_linux_virtual_machine" "test" {
   resource_group_name          = local.rg_name
   location                     = local.location
   size                         = local.info.vm_size
-  admin_username               = local.info.vm_admin
-  admin_password               = local.info.vm_pass
   custom_data                  = module.cloud_init.config
   provision_vm_agent           = true
   allow_extension_operations   = true
-  availability_set_id          = var.enable_vm_availability_set == true ? element(concat(azurerm_availability_set.aset.*.id, [""]), 0) : null
-  encryption_at_host_enabled   = var.enable_encryption_at_host
-  proximity_placement_group_id = var.enable_proximity_placement_group ? azurerm_proximity_placement_group.appgrp.0.id : null
-  zone                         = var.vm_availability_zone
-  tags                         = merge({ "ResourceName" = var.instances_count == 1 ? var.virtual_machine_name : format("%s%s", lower(replace(var.virtual_machine_name, "/[[:^alnum:]]/", "")), count.index + 1) }, var.tags, )
+  availability_set_id          = local.info.enable_vm_availability_set == true ? element(concat(azurerm_availability_set.aset.*.id, [""]), 0) : null
+  encryption_at_host_enabled   = local.info.enable_encryption_at_host
+  proximity_placement_group_id = local.info.enable_proximity_placement_group == true ? azurerm_proximity_placement_group.appgrp.0.id : null
+  zone                         = local.info.enable_vm_availability_set == true ? null : local.info.vm_availability_zone
+  tags                         = local.info.tags
 
   network_interface_ids = [
     azurerm_network_interface.main.id,
   ]
 
   dynamic "admin_ssh_key" {
-    for_each = var.disable_password_authentication ? [1] : []
+    for_each = local.info.disable_password_authentication == true ? [1] : []
     content {
-      username   = var.admin_username
-      public_key = var.admin_ssh_key_data == null ? tls_private_key.rsa[0].public_key_openssh : file(var.admin_ssh_key_data)
+      username   = local.info.admin_username
+      public_key = data.azurerm_ssh_public_key.ssh_key.public_key
     }
   }
 
   dynamic "boot_diagnostics" {
-    for_each = var.enable_boot_diagnostics ? [1] : []
+    for_each = local.info.enable_boot_diagnostics == true ? [1] : []
     content {
-      storage_account_uri = var.storage_account_name != null ? data.azurerm_storage_account.storeacc.0.primary_blob_endpoint : var.storage_account_uri
+      storage_account_uri = local.info.storage_account_name == null ? local.info.storage_account_uri : "${data.azurerm_storage_account.storeacc.primary_blob_host}/compute"
     }
   }
 
@@ -126,23 +135,25 @@ resource "azurerm_linux_virtual_machine" "test" {
 }
 
 data "azurerm_private_dns_zone" "infra" {
-  name                = var.pvt_dns_zone_name
-  resource_group_name = var.pvt_rg_name
+  name                = local.info.pvt_dns_zone_name
+  resource_group_name = local.info.pvt_rg_name
 }
 
 resource "azurerm_virtual_machine_data_disk_attachment" "vm" {
-  count              = length(var.data_disk_name)
+  count              = length(local.info.data_disk_name)
   managed_disk_id    = azurerm_managed_disk.new_data_disk[count.index].id
-  virtual_machine_id = azurerm_linux_virtual_machine.vm.id
-  lun                = var.data_disk_lun + "${count.index + 1}"
-  caching            = var.caching_type
+  virtual_machine_id = azurerm_linux_virtual_machine.test.id
+  lun                = local.info.data_disk_lun + "${count.index + 1}"
+  caching            = local.info.caching_type
+  depends_on = [
+    azurerm_managed_disk.new_data_disk, azurerm_linux_virtual_machine.test
+  ]
 }
 
 resource "azurerm_private_dns_a_record" "arecord1" {
-  count               = local.info.name
-  name                = var.redis_instance_name
+  name                = local.info.vm_name
   zone_name           = data.azurerm_private_dns_zone.infra.name
-  resource_group_name = var.pvt_rg_name
+  resource_group_name = local.info.pvt_rg_name
   ttl                 = 300
   records             = [azurerm_linux_virtual_machine.test.private_ip_address]
 }
