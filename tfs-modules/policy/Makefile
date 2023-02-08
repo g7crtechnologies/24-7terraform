@@ -81,7 +81,6 @@ endif
 apply-speech-application: init-speech-application
 ifeq (DEFAULT,$(module))
 	@terraform apply -var-file=speech_application.tfvars -parallelism=20
-	@cd .\env\ && make apply-mg
 else
 	@terraform apply -target=$(module)
 endif

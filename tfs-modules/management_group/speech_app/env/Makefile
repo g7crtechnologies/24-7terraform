@@ -1,4 +1,4 @@
-.PHONY: init-dev, init-prod, init-prod, init-qa, init-stg, init-stb, plan-dev, plan-prod, plan-qa, plan-stg, plan-stb, apply-dev, apply-prod, apply-qa, apply-stg, apply-stb, plan-mg, help
+.PHONY: init-dev, init-prod, init-prod, init-qa, init-stg, init-psr, plan-dev, plan-prod, plan-qa, plan-stg, plan-psr, apply-dev, apply-prod, apply-qa, apply-stg, apply-psr, plan-mg, help
 module=DEFAULT
 approve=-auto-approve
 ##
@@ -15,7 +15,7 @@ az-qa:
 	@az account set -s fd2d6291-f998-4e73-95d6-12dc7a0a20c8
 az-stg:
 	@az account set -s fd2d6291-f998-4e73-95d6-12dc7a0a20c8
-az-stb:
+az-psr:
 	@az account set -s fd2d6291-f998-4e73-95d6-12dc7a0a20c8
 az-products:
 	@az account set -s fd2d6291-f998-4e73-95d6-12dc7a0a20c8
@@ -30,8 +30,8 @@ init-qa: az-qa
 	@terraform init -backend-config=storage_account_name="tfsstghubtfstate" -backend-config=container_name="tfstate" -backend-config=key="mg/products/speech-application/qa/default.tfstate" -backend-config=resource_group_name="tfs-rg-hub-tfstate" -upgrade -reconfigure -var-file=qa.tfvars
 init-stg: az-stg
 	@terraform init -backend-config=storage_account_name="tfsstghubtfstate" -backend-config=container_name="tfstate" -backend-config=key="mg/products/speech-application/stg/default.tfstate" -backend-config=resource_group_name="tfs-rg-hub-tfstate" -upgrade -reconfigure -var-file=staging.tfvars
-init-stb: az-stb
-	@terraform init -backend-config=storage_account_name="tfsstghubtfstate" -backend-config=container_name="tfstate" -backend-config=key="mg/products/speech-application/stb/default.tfstate" -backend-config=resource_group_name="tfs-rg-hub-tfstate" -upgrade -reconfigure -var-file=stb.tfvars
+init-psr: az-psr
+	@terraform init -backend-config=storage_account_name="tfsstghubtfstate" -backend-config=container_name="tfstate" -backend-config=key="mg/products/speech-application/psr/default.tfstate" -backend-config=resource_group_name="tfs-rg-hub-tfstate" -upgrade -reconfigure -var-file=psr.tfvars
 
 ## plan-dev: run terraform plan on the staging workspace. usage: make plan-dev module=<module name>
 plan-dev: init-dev
@@ -65,10 +65,10 @@ else
 	@terraform plan -target=$(module)
 endif
 
-## plan-stb: run terraform plan on the stb workspace. usage: make plan-stb module=<module name>
-plan-stb: init-stb
+## plan-psr: run terraform plan on the psr workspace. usage: make plan-psr module=<module name>
+plan-psr: init-psr
 ifeq (DEFAULT,$(module))
-	@terraform plan -var-file=stb.tfvars -parallelism=20
+	@terraform plan -var-file=psr.tfvars -parallelism=20
 else
 	@terraform plan -target=$(module)
 endif
@@ -105,18 +105,18 @@ else
 	@terraform apply -target=$(module)
 endif
 
-## apply-stb: run terraform apply on the stb workspace. usage: make apply-stb module=<module name>
-apply-stb: init-stb
+## apply-psr: run terraform apply on the psr workspace. usage: make apply-psr module=<module name>
+apply-psr: init-psr
 ifeq (DEFAULT,$(module))
-	@terraform apply -var-file=stb.tfvars $(approve) -parallelism=20
+	@terraform apply -var-file=psr.tfvars $(approve) -parallelism=20
 else
 	@terraform apply -target=$(module)
 endif
 
 ## plan whole variables
-plan-mg: plan-qa plan-stg plan-stb plan-dev plan-prod
+plan-mg: plan-qa plan-stg plan-psr plan-dev plan-prod
 ##
-apply-mg:  apply-qa apply-stg apply-stb apply-dev apply-prod
+apply-mg:  apply-qa apply-stg apply-psr apply-dev apply-prod
 help: Makefile
 	@sed -n 's/^##//p' $<
 

@@ -14,6 +14,7 @@ init-speech-application: az-speech-application
 plan-speech-application: init-speech-application
 ifeq (DEFAULT,$(module))
 	@terraform plan -var-file=speech_application.tfvars -parallelism=20
+	@cd ./env/ && make plan-mg
 else
 	@terraform plan -target=$(module)
 endif
@@ -22,7 +23,7 @@ endif
 apply-speech-application: init-speech-application
 ifeq (DEFAULT,$(module))
 	@terraform apply -var-file=speech_application.tfvars $(approve) -parallelism=20
-	@cd .\env\ && make apply-mg
+	@cd ./env/ && make apply-mg
 else
 	@terraform apply -target=$(module)
 endif

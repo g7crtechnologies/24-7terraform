@@ -38,6 +38,7 @@ endif
 plan-products: init-products
 ifeq (DEFAULT,$(module))
 	@terraform plan -var-file=products.tfvars -parallelism=20
+	@cd ./speech_app/ && make plan-mg
 else
 	@terraform plan -target=$(module)
 endif
