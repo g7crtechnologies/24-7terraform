@@ -9,11 +9,13 @@ locals {
 
 }
 
+# module for hub environment
 module "hub" {
   source   = "../tfs_azurerm_truth/hub"
   location = var.location
 }
 
+# Module to create the resource group
 module "rg" {
   source   = "../tfs_azurerm_truth/rg"
   location = var.location

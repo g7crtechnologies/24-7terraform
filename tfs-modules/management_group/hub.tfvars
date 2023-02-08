@@ -1,4 +1,4 @@
-#Variables for Hub environment
+# Variables for Hub environment
 parent_management_group_name = null
 display_name                 = "hub"
 parent_management_group_id   = ""

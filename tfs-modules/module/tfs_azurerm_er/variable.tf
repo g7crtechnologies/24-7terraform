@@ -1,26 +1,31 @@
+# Region of express route
 variable "location" {
   description = "location of express route"
   type = string
 }
 
+# Allocation method for this IP address, Defaults to Dynamic
 variable "pip_allocation_method" {
   description = "Defines the allocation method for this IP address. Possible values are Static or Dynamic. Defaults to Dynamic"
   type        = string
   default     = "Static"
 }
 
+#  SKU of the Public IP, Defaults to Basic.
 variable "public_ip_sku" {
   description = "The SKU of the Public IP. Accepted values are Basic and Standard. Defaults to Basic"
   type        = string
   default     = "Standard"
 }
 
+#  Authorization name for express route
 variable "authorization_name" {
   type    = string
   default = "auth_name"
   description = "authorization name for express route"
 }
 
+# Express Route Configuration
 variable "er_config" {
   description = "Object type of data for Express Route Configuration"
   type = object({
@@ -39,6 +44,7 @@ variable "er_config" {
   }
 }
 
+# SKU For express Route
 variable "sku" {
   description = "SKU For express Route"
   type = object({
@@ -51,6 +57,7 @@ variable "sku" {
   }
 }
 
+# Virtual Network Gateway Configuration
 variable "vng_config" {
   description = "Object type of data for Virtual Network Gateway Configuration"
   type = object({
@@ -67,6 +74,7 @@ variable "vng_config" {
   }
 }
 
+# Express Route Connection Configuration
 variable "con_config" {
   description = "Object type of data for Express Route Connection Configuration"
   type = object({
@@ -79,12 +87,14 @@ variable "con_config" {
   }
 }
 
+# Tags for Azure Resources
 variable "tags" {
   description = "A map of tags to add to all resources"
   type        = map(string)
   default     = null
 }
 
+# Azure firewall subnet
 variable "gateway_subnet" {
   description = "azure firewall subnet"
   type = list(string)

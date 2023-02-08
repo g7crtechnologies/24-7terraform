@@ -1,6 +1,6 @@
 #To call Current login Subscription
 data "azurerm_subscription" "current" {}
-#To define some local variable to use as a local variable
+# Local variables for Management group
 locals {
   parent                     = var.parent_management_group_name != null ? true : false
   parent_management_group_id = var.parent_management_group_id

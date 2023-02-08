@@ -1,9 +1,11 @@
-
+# SKU of Bastion Host
 variable "sku" {
   type        = string
   description = "Azure Bastion Host Service SKU"
   default     = "Basic" // Basic or Standard
 }
+
+# Scale units of Bastion host
 
 variable "scale_units" {
   type        = string
@@ -18,6 +20,7 @@ variable "location" {
   default     = "north europe"
 }
 
+# Subnet CIDR 
 variable "subnet_cidr" {
   type        = list(string)
   description = "subnet cidr bastion host"

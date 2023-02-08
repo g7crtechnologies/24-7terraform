@@ -1,4 +1,4 @@
-#Variables for QA Environment
+# Variables for QA Environment
 parent_management_group_name = null
 display_name                 = "speech-application-qa"
 parent_management_group_id   = ""

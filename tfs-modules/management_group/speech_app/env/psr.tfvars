@@ -1,4 +1,4 @@
-#Variables for Stb Environment
+# Variables for psr Environment
 parent_management_group_name = null
 display_name                 = "speech-application-psr"
 parent_management_group_id   = ""

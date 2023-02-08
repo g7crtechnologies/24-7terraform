@@ -1,3 +1,4 @@
+# Display name of management group
 variable "display_name" {
   type        = string
   description = "name of management group"
@@ -16,6 +17,7 @@ variable "policy" {
   }))
 }
 
+# Name of policy
 variable "policy_rg" {
   type = map(object({
     name                 = string

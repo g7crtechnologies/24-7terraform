@@ -1,4 +1,5 @@
 #Variable for West US Region
+
 location = "westus"
 sku      = "Standard"
 prefix   = "tfs-ilb"

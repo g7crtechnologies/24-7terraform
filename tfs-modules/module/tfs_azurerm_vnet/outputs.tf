@@ -15,6 +15,7 @@ locals {
   }
 }
 
+# Output of vnet id
 output "vnet_id" {
   value      = "hub" == local.env_name[terraform.workspace] ? local.vnet_id.0 : null
   depends_on = [local.hub_con]

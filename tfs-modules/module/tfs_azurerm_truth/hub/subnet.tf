@@ -6,7 +6,7 @@ locals {
   loc_prefix  = var.location == "eastus" ? "eu" : "wu"
 }
 
-
+# Subscription ID of Hub Environment
 provider "azurerm" {
   alias           = "hub"
   subscription_id = "fd2d6291-f998-4e73-95d6-12dc7a0a20c8"
@@ -37,6 +37,7 @@ output "lb" {
   value = data.terraform_remote_state.subnet.outputs.lb
 }
 
+# location of resources
 variable "location" {
   type = string
   description = "location of resources"

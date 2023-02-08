@@ -12,16 +12,19 @@ locals {
   }
 }
 
+# Module to craete the resource group
 module "rg" {
   source   = "../tfs_azurerm_truth/rg"
   location = var.location
 }
 
+# Network Module
 module "network" {
   source   = "../tfs_azurerm_truth/network"
   location = var.location
 }
 
+# Hub module
 module "hub" {
   source   = "../tfs_azurerm_truth/hub"
   location = var.location

@@ -1,4 +1,5 @@
-#Variables for Staging Environment
+# Variables for Staging Environment
+
 parent_management_group_name = null
 display_name                 = "speech-application-staging"
 parent_management_group_id   = ""

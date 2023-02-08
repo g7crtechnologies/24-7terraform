@@ -3,6 +3,8 @@ module=DEFAULT
 approve=-auto-approve
 ##
 ## init: run terraform init. usage: make init-{env} [ env = init-dev / init-prod ]
+
+## For all environments, we use the Hub subscription ID because the tfstate for all management groups will be saved in the hub subscription.
 az-dev:
 	@az account set -s fd2d6291-f998-4e73-95d6-12dc7a0a20c8
 az-prod:
@@ -21,6 +23,8 @@ az-products:
 	@az account set -s fd2d6291-f998-4e73-95d6-12dc7a0a20c8
 az-speech-application:
 	@az account set -s fd2d6291-f998-4e73-95d6-12dc7a0a20c8
+
+## Initializing the different different env 
 
 init-dev: az-dev
 	@terraform init -backend-config=storage_account_name="tfsstghubtfstate" -backend-config=container_name="tfstate" -backend-config=key="mg/products/speech-application/dev/default.tfstate" -backend-config=resource_group_name="tfs-rg-hub-tfstate" -upgrade -reconfigure -var-file=dev.tfvars
@@ -114,8 +118,11 @@ else
 endif
 
 ## plan whole variables
+
 plan-mg: plan-qa plan-stg plan-psr plan-dev plan-prod
-##
+
+## Apply whole variables
+
 apply-mg:  apply-qa apply-stg apply-psr apply-dev apply-prod
 help: Makefile
 	@sed -n 's/^##//p' $<

@@ -3,6 +3,8 @@ module=DEFAULT
 
 ##
 ## init: run terraform init. usage: make init-{env} [ env = init-iac / init-root ]
+
+# For all environments, we use the Hub subscription ID because the tfstate for all Policies will be saved in the hub subscription.
 az-iac:
 	@az account set -s fd2d6291-f998-4e73-95d6-12dc7a0a20c8
 az-root:
@@ -12,6 +14,7 @@ az-hub:
 az-speech-application:
 	@az account set -s fd2d6291-f998-4e73-95d6-12dc7a0a20c8
 
+## Initializing for different different env
 init-iac: az-iac
 	@terraform init -backend-config=storage_account_name="tfsstghubtfstate" -backend-config=container_name="tfstate" -backend-config=key="policy/iac/default.tfstate" -backend-config=resource_group_name="tfs-rg-hub-tfstate" -upgrade -reconfigure -var-file=iac.tfvars
 init-root: az-root

@@ -1,4 +1,4 @@
-#Variable for West US Region
+# Variable for West US Region
 location ="westus"
 public_ip_sku         = "Standard"
 pip_allocation_method = "Static"

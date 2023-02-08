@@ -1,3 +1,4 @@
+# Address space for Virtual Network
 variable "address_space" {
   type = map(map(object({
     name          = string
@@ -16,12 +17,14 @@ variable "address_space" {
   }
 }
 
+# Azure Region
 variable "region" {
   description = "pci_type name for naming convention"
   type        = string
   default     = "eu"
 }
 
+# The tags to associate with your network and subnets
 variable "tags" {
   description = "The tags to associate with your network and subnets."
   type        = map(string)
@@ -30,6 +33,7 @@ variable "tags" {
   }
 }
 
+# The address prefix to use for the subnet.
 variable "subnet_prefixes" {
   description = "The address prefix to use for the subnet."
   type        = any
@@ -42,6 +46,8 @@ variable "subnet_prefixes" {
     }
   }
 }
+
+# location of vnets
 variable "location" {
   description = "location of vnets"
   type        = string

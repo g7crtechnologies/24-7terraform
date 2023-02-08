@@ -28,6 +28,7 @@ output "rg_name" {
   description = "resoucrce group name output for remotstate call"
 }
 
+# location of resources
 variable "location" {
   type = string
   description = "location of resources"

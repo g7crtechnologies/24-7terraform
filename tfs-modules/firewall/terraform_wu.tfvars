@@ -1,4 +1,4 @@
-#Variable for West US Region
+# Variable for West US Region
 location                                  = "westus"
 enable_forced_tunneling                   = false
 public_ip_names                           = ["fw-public"]

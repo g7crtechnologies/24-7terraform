@@ -1,9 +1,11 @@
+# Name of management group
 variable "display_name" {
   type        = string
   description = "name of management group"
   default     = "mg-hub"
 }
 
+# Policies
 variable "policy" {
   type = map(object({
     name                 = string
@@ -16,6 +18,7 @@ variable "policy" {
   }))
 }
 
+# Name of policy
 variable "policy_rg" {
   type = map(object({
     name                 = string

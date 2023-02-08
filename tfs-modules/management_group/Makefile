@@ -4,6 +4,7 @@ approve=-auto-approve
 ##
 ## init: run terraform init. usage: make init-{env} [ env = init-dev / init-prod ]
 
+# For all environments, we use the Hub subscription ID because the tfstate for all management groups will be saved in the hub subscription.
 az-hub:
 	@az account set -s fd2d6291-f998-4e73-95d6-12dc7a0a20c8
 az-iac:
@@ -11,6 +12,7 @@ az-iac:
 az-products:
 	@az account set -s fd2d6291-f998-4e73-95d6-12dc7a0a20c8
 
+## Initializing the different different env 
 init-hub: az-hub
 	@terraform init -backend-config=storage_account_name="tfsstghubtfstate" -backend-config=container_name="tfstate" -backend-config=key="mg/hub/default.tfstate" -backend-config=resource_group_name="tfs-rg-hub-tfstate" -upgrade -reconfigure -var-file=hub.tfvars
 init-iac: az-iac

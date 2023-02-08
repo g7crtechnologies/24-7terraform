@@ -1,3 +1,4 @@
+# To fetch the parentid from terrafrom tfstate
 data "terraform_remote_state" "env" {
   backend = "azurerm"
   config = {

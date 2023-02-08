@@ -1,3 +1,5 @@
+# List of load balancer.
+
 variable "lbs" {
   description = "List containing your load balancers."
   type        = any
@@ -18,11 +20,16 @@ variable "lbs" {
     }
   }
 }
+
+# Prefix for Load balancer
+
 variable "prefix" {
   description = "Prefix applied on the load balancer resources names."
   type        = any
   default     = "tfs-ilb"
 }
+
+#Location of the load balancer 
 
 variable "location" {
   description = "Location of the load balancer, use the RG's location if not set"
@@ -30,11 +37,15 @@ variable "location" {
   default     = "eastus"
 }
 
+#SKU of the load balancer
+
 variable "sku" {
   description = "SKU of the load balancer."
   type        = any
   default     = "Standard"
 }
+
+# Tags for Azure resources
 
 variable "tags" {
   description = "tags for loadbalancer"

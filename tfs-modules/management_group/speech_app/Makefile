@@ -29,7 +29,7 @@ else
 endif
 ## plan whole variables
 plan-mg: plan-speech-application 
-##
+## apply whole variables
 apply-mg: apply-speech-application
 help: Makefile
 	@sed -n 's/^##//p' $<

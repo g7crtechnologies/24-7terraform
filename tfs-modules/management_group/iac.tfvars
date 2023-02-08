@@ -1,4 +1,4 @@
-#Variable for IAC environment
+# Variable for IAC environment
 parent_management_group_name = null
 display_name                 = "iac"
 parent_management_group_id   = ""

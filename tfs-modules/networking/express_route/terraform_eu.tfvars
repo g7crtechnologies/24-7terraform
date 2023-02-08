@@ -1,4 +1,4 @@
-#Variable for East US Region
+# Variable for East US Region
 location              = "eastus"
 public_ip_sku         = "Standard"
 pip_allocation_method = "Static"

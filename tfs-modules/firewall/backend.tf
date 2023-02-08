@@ -5,7 +5,7 @@ locals {
   loc_prefix  = var.location == "eastus" ? "eu" : "wu"
 }
 
-#Calling terraform tfstate file from backend
+# To store the tfstate in backend in storage account.
 
 terraform {
   backend "azurerm" {

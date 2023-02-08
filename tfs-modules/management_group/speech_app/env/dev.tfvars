@@ -1,4 +1,5 @@
 #Variables for Dev Environment
+
 parent_management_group_name = null
 display_name                 = "speech-application-dev"
 parent_management_group_id   = ""

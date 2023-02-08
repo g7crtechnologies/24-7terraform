@@ -9,12 +9,13 @@ locals {
   vnet_name           = module.hub.vnet_name
 }
 
+# Module for resource group
 module "rg" {
   source   = "../tfs_azurerm_truth/rg"
   location = var.location
-
 }
 
+# Module for Hub environment
 module "hub" {
   source   = "../tfs_azurerm_truth/hub"
   location = var.location

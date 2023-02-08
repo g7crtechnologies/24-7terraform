@@ -1,22 +1,23 @@
-# To call the resource group name & Vnet name from remote state
+# Local variables for Resource group, location and Virtual network name
 locals {
   resource_group_name = module.rg.rg_name
   location            = var.location
   vnet_name           = module.hub.vnet_name
 }
 
-# To Create the Gateway Subnet
-
+# module to Create the Gateway Subnet
 module "hub" {
   source = "../tfs_azurerm_truth/hub"
   location = var.location
 }
 
+#Module to create the resource group
 module "rg" {
   source = "../tfs_azurerm_truth/rg"
   location = var.location
 }
 
+# Create a subnet for Virtual Network Gateway // DO NOT Rename
 resource "azurerm_subnet" "subnet" {
   name                 = "GatewaySubnet"
   resource_group_name  = local.resource_group_name

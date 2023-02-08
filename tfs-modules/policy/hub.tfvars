@@ -1,3 +1,5 @@
+# Policies for hub environments.
+
 policy = {
   #custom
   # "1" = {

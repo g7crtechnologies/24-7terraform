@@ -22,17 +22,20 @@ locals {
     "stb"  = "stb"
   }
 }
+
+# Truth module
 module "truth" {
   source = "../tfs_azurerm_truth/network"
   location = var.location
 }
 
+# Module to create the resource group
 module "rg" {
   source = "../tfs_azurerm_truth/rg"
   location = var.location
 }
 
-
+# To call existing hub virtual network
 data "azurerm_virtual_network" "hub" {
   provider = azurerm.hub
   name = var.location == "eastus" ? "tfs-vnet-hub-eu-speech" : "tfs-vnet-hub-wu-speech"
