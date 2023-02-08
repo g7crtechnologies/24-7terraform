@@ -1,7 +1,11 @@
+#Local variable to define region and prefix
+
 locals {
   environment = var.location == "eastus" ? "eastus" : "westus"
   loc_prefix  = var.location == "eastus" ? "eu" : "wu"
 }
+
+#Calling terraform tfstate file from backend
 
 terraform {
   backend "azurerm" {

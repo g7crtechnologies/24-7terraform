@@ -1,3 +1,4 @@
+# Varaible required for Bastion host
 
 variable "sku" {
   type        = string

@@ -20,6 +20,7 @@ az-stg:
 az-stb:
 	@az account set -s 14d3f616-f754-40e5-a37e-925bfd2e4480
 
+## Initializing the different different env East US region
 init-dev-eu: az-dev
 	@terraform init -backend-config=storage_account_name="tfsstgdevtfstate" -backend-config=container_name="tfstate" -backend-config=key="eastus/bastion_host/dev/default.tfstate" -backend-config=resource_group_name="tfs-rg-dev-tfstate" -upgrade -reconfigure -var-file=terraform_eu.tfvars
 init-prod-eu: az-prod
@@ -167,7 +168,7 @@ endif
 ### west-us region
 
 
-
+## Initializing the different different env for West US region
 init-prod-wu: az-prod
 	@terraform init -backend-config=storage_account_name="tfsstgprodtfstate" -backend-config=container_name="tfstate" -backend-config=key="westus/bastion_host/prod/default.tfstate" -backend-config=resource_group_name="tfs-rg-prod-tfstate" -upgrade -reconfigure -var-file=terraform_wu.tfvars
 init-hub-wu: az-hub
@@ -269,6 +270,8 @@ else
 	@terraform apply -target=$(module)
 endif
 
+## To plan for both the region 
+
 plan-hub: plan-hub-eu plan-hub-wu
 plan-dev: plan-dev-eu
 plan-qa: plan-qa-eu
@@ -277,6 +280,8 @@ plan-stb: plan-stb-eu plan-stb-wu
 plan-prod: plan-prod-eu plan-prod-wu
 plan-psr: plan-psr-eu plan-psr-wu
 
+
+## To apply for both the region 
 apply-hub: apply-hub-eu apply-hub-wu
 apply-dev: apply-dev-eu
 apply-qa: apply-qa-eu
